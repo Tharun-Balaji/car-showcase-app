@@ -14,7 +14,7 @@ import Image from "next/image";
 /**
  * Import the CustomButton component, which is used as the call-to-action button.
  */
-import CustomButton from "./CustomButton";
+import {CustomButton} from "./";
 
 /**
  * The Hero component function.
