@@ -30,6 +30,37 @@ async function fetchCars() {
   const result = await response.json();
 
   return result;
- };
+};
+ 
 
-export { fetchCars };
+/**
+ * Calculates the daily rental rate of a car based on its city fuel efficiency (in mpg)
+ * and its year of manufacture.
+ *
+ * The rental rate is calculated as the base rate plus an additional rate based on
+ * the mileage and the age of the vehicle. The mileage rate is 0.1 per mile per day,
+ * and the age rate is 0.05 per year of vehicle age.
+ *
+ * @param {number} city_mpg - The city fuel efficiency of the car in miles per gallon.
+ * @param {number} year - The year of manufacture of the car.
+ * @returns {string} The daily rental rate as a string, rounded to the nearest whole number.
+ */
+const calculateCarRent = (city_mpg: number, year: number) => {
+  const basePricePerDay = 50; // Base rental price per day in dollars
+  const mileageFactor = 0.1; // Additional rate per mile driven
+  const ageFactor = 0.05; // Additional rate per year of vehicle age
+
+  // Calculate additional rate based on mileage and age
+  const mileageRate = city_mpg * mileageFactor;
+  const ageRate = (new Date().getFullYear() - year) * ageFactor;
+
+  // Calculate total rental rate per day
+  const rentalRatePerDay = basePricePerDay + mileageRate + ageRate;
+
+  return rentalRatePerDay.toFixed(0);
+};
+
+export {
+  fetchCars,
+  calculateCarRent
+};
