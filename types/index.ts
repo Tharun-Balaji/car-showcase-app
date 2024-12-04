@@ -45,54 +45,52 @@ export interface SearchManufacturerProps {
   setManufacturer: (manufacturer: string) => void;
 }
 
+/**
+ * CarProps is an interface that describes the properties of a car.
+ *
+ * @property {number} city_mpg - The number of miles per gallon that the car can get in city driving.
+ * @property {string} class - The class of the car. For example, "Compact" or "SUV".
+ * @property {number} combination_mpg - The number of miles per gallon that the car can get in combination city and
+ * highway driving.
+ * @property {number} cylinders - The number of cylinders in the car's engine.
+ * @property {number} displacement - The displacement of the car's engine.
+ * @property {string} drive - The type of drive the car has. For example, "Front-Wheel Drive" or "All-Wheel Drive".
+ * @property {string} fuel_type - The type of fuel the car uses. For example, "Gasoline" or "Electric".
+ * @property {number} highway_mpg - The number of miles per gallon that the car can get in highway driving.
+ * @property {string} make - The make of the car. For example, "Toyota" or "Ford".
+ * @property {string} model - The model of the car. For example, "Corolla" or "F-150".
+ * @property {string} transmission - The type of transmission the car has. For example, "Automatic" or "Manual".
+ * @property {number} year - The year the car was manufactured.
+ */
 export interface CarProps {
-  /**
-   * The number of miles per gallon that the car can get in city driving.
-   */
   city_mpg: number;
-  /**
-   * The class of the car. For example, "Compact" or "SUV".
-   */
   class: string;
-  /**
-   * The number of miles per gallon that the car can get in combination city and
-   * highway driving.
-   */
   combination_mpg: number;
-  /**
-   * The number of cylinders in the car's engine.
-   */
   cylinders: number;
-  /**
-   * The displacement of the car's engine.
-   */
   displacement: number;
-  /**
-   * The type of drive the car has. For example, "Front-Wheel Drive" or "All-Wheel Drive".
-   */
   drive: string;
-  /**
-   * The type of fuel the car uses. For example, "Gasoline" or "Electric".
-   */
   fuel_type: string;
-  /**
-   * The number of miles per gallon that the car can get in highway driving.
-   */
   highway_mpg: number;
-  /**
-   * The make of the car. For example, "Toyota" or "Ford".
-   */
   make: string;
-  /**
-   * The model of the car. For example, "Corolla" or "F-150".
-   */
   model: string;
-  /**
-   * The type of transmission the car has. For example, "Automatic" or "Manual".
-   */
   transmission: string;
-  /**
-   * The year the car was manufactured.
-   */
   year: number;
+}
+
+/**
+ * FilterProps is an interface that describes the properties that can be used to filter
+ * cars.
+ *
+ * @property {string} [manufacturer] - The manufacturer of the car to filter by.
+ * @property {number} [year] - The year of the car to filter by.
+ * @property {string} [model] - The model of the car to filter by.
+ * @property {number} [limit] - The number of cars to return.
+ * @property {string} [fuel] - The type of fuel the car uses to filter by.
+ */
+export interface FilterProps {
+  manufacturer?: string;
+  year?: number;
+  model?: string;
+  limit?: number;
+  fuel?: string;
 }
