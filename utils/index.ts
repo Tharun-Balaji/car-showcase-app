@@ -1,3 +1,5 @@
+import { FilterProps } from "@/types";
+
 const url = "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla";
 const options = {
   method: "GET",
@@ -10,22 +12,46 @@ const options = {
 try {
   const response = await fetch(url, options);
   const result = await response.text();
-  console.log(result);
+  // console.log(result);
 } catch (error) {
   console.error(error);
 }
 
 
 
-async function fetchCars() {
+/**
+ * fetchCars is an asynchronous function that fetches a list of cars based on
+ * the filters provided in the argument. It returns a Promise that resolves to
+ * an array of objects, each of which contains details of a car matching the
+ * search criteria.
+ *
+ * @param {FilterProps} filters - An object of type FilterProps that contains
+ * details of the search criteria. The properties of the object are:
+ * - manufacturer: The manufacturer of the car to filter by.
+ * - year: The year of the car to filter by.
+ * - model: The model of the car to filter by.
+ * - limit: The number of cars to return.
+ * - fuel: The type of fuel the car uses to filter by.
+ *
+ * @return {Promise<CarProps[]>} - A Promise that resolves to an array of
+ * objects, each of which contains details of a car matching the search
+ * criteria.
+ */
+async function fetchCars(filters: FilterProps) {
+
+  const { manufacturer, year, model, limit, fuel } = filters;
+
   const headers = {
     "x-rapidapi-key": "da91133d6emsh8c23cefb762ef4ep1fd891jsnf8755287ccfe",
-    "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com"
+    "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com",
   };
 
-  const response = await fetch("https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla", {
-    headers: headers
-  });
+  const response = await fetch(
+    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+    {
+      headers: headers,
+    }
+  );
 
   const result = await response.json();
 
