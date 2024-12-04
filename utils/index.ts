@@ -1,4 +1,4 @@
-import { FilterProps } from "@/types";
+import { CarProps, FilterProps } from "@/types";
 
 const url = "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla";
 const options = {
@@ -37,8 +37,7 @@ try {
  * objects, each of which contains details of a car matching the search
  * criteria.
  */
-async function fetchCars(filters: FilterProps) {
-
+async function fetchCars(filters: FilterProps): Promise<CarProps[]> {
   const { manufacturer, year, model, limit, fuel } = filters;
 
   const headers: HeadersInit = {
@@ -46,16 +45,26 @@ async function fetchCars(filters: FilterProps) {
     "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com",
   };
 
-  const response = await fetch(
-    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
-    {
-      headers: headers,
+  try {
+    const response = await fetch(
+      `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+      {
+        headers: headers,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  );
 
-  const result = await response.json();
+    const result = await response.json();
 
-  return result;
+    return result as CarProps[];
+  } catch (error) {
+    // Centralized error handling
+    console.error("Failed to fetch cars:", error);
+    return []; // Return empty array on error
+  }
 };
  
 

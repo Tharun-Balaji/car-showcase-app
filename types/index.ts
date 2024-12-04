@@ -1,5 +1,6 @@
 import { MouseEventHandler } from "react";
 
+
 /**
  * @description
  * CustomButtonProps is an interface that describes the properties passed to

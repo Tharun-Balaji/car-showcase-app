@@ -19,25 +19,39 @@ import { fetchCars } from "@/utils";
  * are found. It also includes the Hero component, a search bar, and
  * custom filters for fuel type and year of production.
  */
-export default async function Home({ searchParams }: HomeProps) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}) {
+  // Helper function to handle potential string or string array
+  const getFirstString = (
+    param: string | string[] | undefined
+  ): string | undefined => {
+    // If it's undefined, return undefined
+    if (param === undefined) return undefined;
 
-  const { limit, manufacturer, year, fuel, model } = await searchParams;
+    // If it's an array, take the first element
+    return Array.isArray(param) ? param[0] : param;
+  };
 
-  // fetch a list of cars based on the search parameters provided
+  // Apply the helper function to each search parameter
+  const manufacturer = getFirstString(searchParams.manufacturer);
+  const year = getFirstString(searchParams.year);
+  const fuel = getFirstString(searchParams.fuel);
+  const limit = getFirstString(searchParams.limit);
+  const model = getFirstString(searchParams.model);
+
+  // Now safely convert to numbers or use defaults
   const allCars = await fetchCars({
-    // manufacturer name, if any
     manufacturer: manufacturer || "",
-    // year of production, default to 2022
-    year: year || 2022,
-    // fuel type, default to empty string
+    year: Number(year) || 2022,
     fuel: fuel || "",
-    // limit of cars to return, default to 10
-    limit: limit || 10,
-    // car model, default to empty string
+    limit: Number(limit) || 10,
     model: model || "",
   });
-
-  
 
   // check if the data is empty
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
@@ -75,16 +89,14 @@ export default async function Home({ searchParams }: HomeProps) {
 
               {/* render a show more button if there are more cars to show */}
               <ShowMore
-                pageNumber={ (limit || 10) / 10}
-                isNext={ (limit || 10) > allCars.length}
+                pageNumber={Number(limit) / 10}
+                isNext={Number(limit) > allCars.length}
               />
             </section>
           ) : (
             // if data is empty, render an error message
             <div className="home__error-container">
               <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-              {/* display the error message if any */}
-              {allCars?.message && <p>{allCars.message}</p>}
             </div>
           )
         }
