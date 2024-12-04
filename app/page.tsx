@@ -21,19 +21,23 @@ import { fetchCars } from "@/utils";
  */
 export default async function Home({ searchParams }: HomeProps) {
 
+  const { limit, manufacturer, year, fuel, model } = await searchParams;
+
   // fetch a list of cars based on the search parameters provided
   const allCars = await fetchCars({
     // manufacturer name, if any
-    manufacturer: searchParams.manufacturer || "",
+    manufacturer: manufacturer || "",
     // year of production, default to 2022
-    year: searchParams.year || 2022,
+    year: year || 2022,
     // fuel type, default to empty string
-    fuel: searchParams.fuel || "",
+    fuel: fuel || "",
     // limit of cars to return, default to 10
-    limit: searchParams.limit || 10,
+    limit: limit || 10,
     // car model, default to empty string
-    model: searchParams.model || "",
+    model: model || "",
   });
+
+  
 
   // check if the data is empty
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
@@ -71,8 +75,8 @@ export default async function Home({ searchParams }: HomeProps) {
 
               {/* render a show more button if there are more cars to show */}
               <ShowMore
-                pageNumber={(searchParams.limit || 10) / 10}
-                isNext={(searchParams.limit || 10) > allCars.length}
+                pageNumber={ (limit || 10) / 10}
+                isNext={ (limit || 10) > allCars.length}
               />
             </section>
           ) : (
