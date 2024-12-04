@@ -2,6 +2,14 @@ import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
 import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
+import { Metadata } from "next";
+
+// Define a more precise type for page props
+export interface PageProps {
+  params?: Promise<any>;
+  searchParams?: Promise<any>;
+}
+
 
 /**
  * Home is an asynchronous function component that renders the main page
@@ -19,32 +27,27 @@ import { fetchCars } from "@/utils";
  * are found. It also includes the Hero component, a search bar, and
  * custom filters for fuel type and year of production.
  */
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
-}) {
+export default async function Home({ params, searchParams  }: PageProps) {
   // Helper function to handle potential string or string array
-  const getFirstString = (
-    param: string | string[] | undefined
-  ): string | undefined => {
-    // If it's undefined, return undefined
-    if (param === undefined) return undefined;
+  // Helper function to safely extract first string value
 
-    // If it's an array, take the first element
-    return Array.isArray(param) ? param[0] : param;
-  };
+  // Safely extract search parameters
+ const getSearchParam = (
+   param: string | string[] | undefined
+ ): string | undefined => {
+   return Array.isArray(param) ? param[0] : param;
+ };
 
-  // Apply the helper function to each search parameter
-  const manufacturer = getFirstString(searchParams.manufacturer);
-  const year = getFirstString(searchParams.year);
-  const fuel = getFirstString(searchParams.fuel);
-  const limit = getFirstString(searchParams.limit);
-  const model = getFirstString(searchParams.model);
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  
+  // Convert parameters with type safety
+ const manufacturer = getSearchParam(resolvedSearchParams.manufacturer);
+ const year = getSearchParam(resolvedSearchParams.year);
+ const fuel = getSearchParam(resolvedSearchParams.fuel);
+ const limit = getSearchParam(resolvedSearchParams.limit);
+ const model = getSearchParam(resolvedSearchParams.model);
 
-  // Now safely convert to numbers or use defaults
+  // Fetch cars with robust parameter handling
   const allCars = await fetchCars({
     manufacturer: manufacturer || "",
     year: Number(year) || 2022,
@@ -103,4 +106,14 @@ export default async function Home({
       </div>
     </main>
   );
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  return {
+    title: "Car Showcase",
+    description: "Explore amazing cars",
+  };
 }

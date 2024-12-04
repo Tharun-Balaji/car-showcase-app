@@ -22,3 +22,4 @@
 [1202/190802.046:ERROR:registration_protocol_win.cc(108)] CreateFile: The system cannot find the file specified. (0x2)
 [1202/190803.352:ERROR:registration_protocol_win.cc(108)] CreateFile: The system cannot find the file specified. (0x2)
 [1202/190803.862:ERROR:registration_protocol_win.cc(108)] CreateFile: The system cannot find the file specified. (0x2)
+[1204/160431.553:ERROR:crashpad_client_win.cc(188)] crash server did not respond, self-terminating
