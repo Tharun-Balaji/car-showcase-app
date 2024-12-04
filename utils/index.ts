@@ -40,6 +40,8 @@ try {
 async function fetchCars(filters: FilterProps): Promise<CarProps[]> {
   const { manufacturer, year, model, limit, fuel } = filters;
 
+  console.log("API-key:", process.env.RAPID_API_KEY);
+
   const headers: HeadersInit = {
     "x-rapidapi-key": "da91133d6emsh8c23cefb762ef4ep1fd891jsnf8755287ccfe",
     "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com",
