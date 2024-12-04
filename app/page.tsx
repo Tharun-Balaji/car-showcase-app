@@ -45,7 +45,8 @@ export default async function Home({ params, searchParams  }: PageProps) {
  const year = getSearchParam(resolvedSearchParams.year);
  const fuel = getSearchParam(resolvedSearchParams.fuel);
  const limit = getSearchParam(resolvedSearchParams.limit);
- const model = getSearchParam(resolvedSearchParams.model);
+  const model = getSearchParam(resolvedSearchParams.model);
+  
 
   // Fetch cars with robust parameter handling
   const allCars = await fetchCars({
@@ -92,8 +93,8 @@ export default async function Home({ params, searchParams  }: PageProps) {
 
               {/* render a show more button if there are more cars to show */}
               <ShowMore
-                pageNumber={Number(limit) / 10}
-                isNext={Number(limit) > allCars.length}
+                pageNumber={Number(limit ?? 10) / 10}
+                isNext={Number(limit ?? 10) > allCars.length}
               />
             </section>
           ) : (
