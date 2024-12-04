@@ -117,3 +117,14 @@ export interface CustomFilterProps {
   options: OptionProps[];
 }
 
+/**
+ * ShowMoreProps is an interface that describes the properties of the ShowMore component.
+ *
+ * @property {number} pageNumber - The current page number.
+ * @property {boolean} isNext - A boolean indicating whether there are more cars to show.
+ */
+export interface ShowMoreProps {
+  pageNumber: number;
+  isNext: boolean;
+}
+
