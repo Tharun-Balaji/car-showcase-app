@@ -86,7 +86,29 @@ const calculateCarRent = (city_mpg: number, year: number) => {
   return rentalRatePerDay.toFixed(0);
 };
 
+/**
+ * Updates the current URL's search parameters by setting the specified
+ * parameter to the given value. It returns the new URL path as a string.
+ *
+ * @param {string} type - The type of search parameter to update.
+ * @param {string} value - The new value to set for the specified search parameter.
+ * @returns {string} The updated URL path as a string.
+ */
+ const updateSearchParams = (type: string, value: string) => {
+   // Get the current URL search params
+   const searchParams = new URLSearchParams(window.location.search);
+
+   // Set the specified search parameter to the given value
+   searchParams.set(type, value);
+
+   // Set the specified search parameter to the given value
+   const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+
+   return newPathname;
+ };
+
 export {
   fetchCars,
-  calculateCarRent
+  calculateCarRent,
+  updateSearchParams
 };
