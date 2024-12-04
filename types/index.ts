@@ -94,3 +94,26 @@ export interface FilterProps {
   limit?: number;
   fuel?: string;
 }
+
+/**
+ * OptionProps is an interface that describes the properties of an option in a filter component.
+ *
+ * @property {string} title - The title of the option.
+ * @property {string} value - The value of the option.
+ */
+export interface OptionProps {
+  title: string;
+  value: string;
+}
+
+/**
+ * CustomFilterProps is an interface that describes the properties of a custom filter component.
+ *
+ * @property {string} title - The title of the filter.
+ * @property {OptionProps[]} options - An array of options for the filter.
+ */
+export interface CustomFilterProps {
+  title: string;
+  options: OptionProps[];
+}
+
