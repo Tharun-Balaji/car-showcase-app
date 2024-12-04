@@ -128,3 +128,11 @@ export interface ShowMoreProps {
   isNext: boolean;
 }
 
+/**
+ * HomeProps is an interface that describes the properties passed to the Home component.
+ *
+ * @property {FilterProps} searchParams - The search parameters used to filter the list of cars.
+ */
+export interface HomeProps {
+  searchParams: FilterProps;
+}
