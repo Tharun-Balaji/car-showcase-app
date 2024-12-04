@@ -73,10 +73,26 @@ const manufacturers = [
   "Volvo",
 ];
 
+const fuels = [
+  {
+    title: "Fuel",
+    value: "",
+  },
+  {
+    title: "Gas",
+    value: "Gas",
+  },
+  {
+    title: "Electricity",
+    value: "Electricity",
+  },
+];
+
 
 
 
 export {
   footerLinks,
-  manufacturers
+  manufacturers,
+  fuels,
 }
